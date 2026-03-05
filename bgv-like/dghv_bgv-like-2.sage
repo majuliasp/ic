@@ -130,6 +130,12 @@ class DGHV:
             'level' : level
         }
 
+    def not_gate(self, c):
+        return {
+            'criptograma' : (1 - c['criptograma']) % self.x0,
+            'level': c['level']
+        }
+
     def mult(self, c0_obj, c1_obj):
         # Para funcionar, ambos precisam estar no mesmo nível
         # Colocando ambos os objetos no mesmo nível, caso não estejam

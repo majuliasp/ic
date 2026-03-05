@@ -4,9 +4,6 @@ def compIguais(dghv, n):
     m0 = ZZ.random_element(0, 2^n)
     m1 = ZZ.random_element(0, 2^n)
 
-    print(f"m0 = {m0}")
-    print(f"m1 = {m1}")
-
     bits0 = m0.digits(base=2, padto=n)
     bits1 = m1.digits(base=2, padto=n)
 
@@ -16,19 +13,21 @@ def compIguais(dghv, n):
 
     c = dghv.enc(1)
         # Codifica c 
-    const1 = dghv.enc(1)
-        # Codifica constante 1 para realizar a porta not (c XOR 1)
     for i in range(n):
         cmp_i = dghv.add(c0[i], c1[i])       # c0[i] XOR c1[i]
         cmp_i = dghv.not_gate(cmp_i)
         c = dghv.mult(c, cmp_i)              # c = c AND cmp_i
 
     res = dghv.dec(c)
-    print(f"Esperado: {1 if m0==m1 else 0} | Res: {res}")
+    if (m0 == m1) != res:
+        print(f"m0 = {m0} e m1 = {m1}")
+        print(f"[ERRO] Esperado: {m0 == m1} | Resultado: {res}")
+        exit(1)
+    print(f"{m0} é {"igual a" if res else "diferente de"} {m1}.")
     
-
-dghv = DGHV(448, 64, 8, )
-compIguais(dghv)
+n = 5 #Número de bits
+dghv = DGHV(448, 64, 8, n+1)
+compIguais(dghv, n)
 
 # fresco: sk = p e log(ruído) ~= rho
 # depois de multiplicar: sk = p' e log(ruído) ~= rho
