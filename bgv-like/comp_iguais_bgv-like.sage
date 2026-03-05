@@ -25,7 +25,7 @@ def compIguais(dghv, n):
         exit(1)
     print(f"{m0} é {"igual a" if res else "diferente de"} {m1}.")
     
-n = 5 #Número de bits
+n = 3 #Número de bits
 dghv = DGHV(448, 64, 8, n+1)
 compIguais(dghv, n)
 
