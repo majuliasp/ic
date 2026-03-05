@@ -1,6 +1,6 @@
-load("dghv_bgv-like.sage")
+load("dghv_bgv-like-2.sage")
 
-def compIguais(dghv, n=1):
+def compIguais(dghv, n):
     m0 = ZZ.random_element(0, 2^n)
     m1 = ZZ.random_element(0, 2^n)
 
@@ -26,6 +26,7 @@ def compIguais(dghv, n=1):
     res = dghv.dec(c)
     print(f"Esperado: {1 if m0==m1 else 0} | Res: {res}")
     
+
 dghv = DGHV(448, 64, 8, )
 compIguais(dghv)
 
