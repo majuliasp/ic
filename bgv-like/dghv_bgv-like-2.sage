@@ -16,10 +16,7 @@ class DGHV:
         self.rho = rho
         self.t = t
 
-        qq = sample_q(gamma, eta)
-        while (qq == 0):
-            qq = sample_q(gamma, eta)
-            
+        
         self.Zp = ZZ.quotient(p)
         self.b = b 
         
@@ -38,9 +35,12 @@ class DGHV:
             pi = random_prime(self.cadeiaP[-1], lbound=2^(bitsNovo - 1))
             while pi % t != p % t: # Pra t=2 isso é irrelevante
                 pi = random_prime(self.cadeiaP[-1], lbound=2^(bitsNovo - 1))
-                self.cadeiaP.append(pi)
-                bitsAtual = pi.nbits()
-                    
+            self.cadeiaP.append(pi)
+            bitsAtual = pi.nbits()
+                
+        qq = sample_q(gamma, eta)
+        while (qq == 0):
+            qq = sample_q(gamma, eta)
         # Gera chave pública x0; limitará o tamanho do texto cifrado
         self.cadeiax0 = []
         for i in range(L):
