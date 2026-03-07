@@ -16,8 +16,6 @@ class DGHV:
         self.rho = rho
         self.t = t
 
-        
-        self.Zp = ZZ.quotient(p)
         self.b = b 
         
         # Preciso aumentar l conforme a quantidades de níveis multiplicativos eu tenho
@@ -38,15 +36,13 @@ class DGHV:
             self.cadeiaP.append(pi)
             bitsAtual = pi.nbits()
                 
-        qq = sample_q(gamma, eta)
-        while (qq == 0):
-            qq = sample_q(gamma, eta)
         # Gera chave pública x0; limitará o tamanho do texto cifrado
         self.cadeiax0 = []
         for i in range(L):
+            qq = sample_q(gamma, eta)
+            while (qq == 0):
+                qq = sample_q(gamma, eta)
             self.cadeiax0.append(self.cadeiaP[i] * qq)
-
-        self.Zx0 = ZZ.quotient(self.cadeiax0[0])
 
         # Cadeia de trocas de chave
         # cadeiaKeySwitch[0]['key'] -> chave de troca do nível 0 para o nível 1
@@ -136,7 +132,7 @@ class DGHV:
 
     def not_gate(self, c):
         return {
-            'criptograma' : (1 - c['criptograma']) % self.x0,
+            'criptograma' : (1 - c['criptograma']) % self.cadeiax0[c['level']],
             'level': c['level']
         }
 
