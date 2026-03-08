@@ -157,12 +157,11 @@ class DGHV:
         return c
 
     def or_gate(self, c0_obj, c1_obj):
-        # or = (c0 XOR c1) XOR (NOT (c0 AND c1))
-        #      (c0  +  c1)  +  ( -  (c0  *  c1))
+        # or = (c0 XOR c1) XOR (c0 AND c1)
+        #      (c0  +  c1)  +  (c0  *  c1)
         soma = self.add(c0_obj, c1_obj)
         prod = self.mult(c0_obj, c1_obj)
         res = self.add(soma, prod)
-
 
         return res
     
