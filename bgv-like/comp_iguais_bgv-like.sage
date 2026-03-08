@@ -21,13 +21,23 @@ def compIguais(dghv, n):
     res = dghv.dec(c)
     if (m0 == m1) != res:
         print(f"m0 = {m0} e m1 = {m1}")
-        print(f"[ERRO] Esperado: {m0 == m1} | Resultado: {res}")
+        print(f"[ERRO] Esperado: {int(m0 == m1)} | Resultado: {res}")
         exit(1)
     print(f"{m0} é {"igual a" if res else "diferente de"} {m1}.")
     
 n = 5 #Número de bits
-dghv = DGHV(448, 64, 8, n+1)
+L = n + 1
+lamba = 8 # parâmetro de segurança
+dghv = DGHV(448, 2^(n+1) * 8, 8, L)
 compIguais(dghv, n)
+
+# rho -> tamanho do ruído
+# eta -> tamanho do primeiro primo
+#   o tamanho do primo depende do tamanho do circuito
+# gamma -> tamanho do criptograma 
+# lamba -> parâmetro de segurança (qntd de operações que um attacker precisa pra dar ruim)
+
+
 
 # fresco: sk = p e log(ruído) ~= rho
 # depois de multiplicar: sk = p' e log(ruído) ~= rho
