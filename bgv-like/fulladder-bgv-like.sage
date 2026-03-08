@@ -37,7 +37,7 @@ def fulladder(dghv, n): # n = quantidade de bits dos números
     m = 0
     for i in range(n):
         m += mbits[i] * (2^i)
-    # m deve ser a mensagem descriptografada (soma dos valores m1 e m2 iniciais)
+    # m deve ser a mensagem descriptografada (soma dos valores m0 e m1 iniciais)
 
     esperado = sumLimitedBits(m0, m1, n)
     if m != esperado:
