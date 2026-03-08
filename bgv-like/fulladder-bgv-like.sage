@@ -45,5 +45,5 @@ def fulladder(dghv, n): # n = quantidade de bits dos números
         exit(1)
     print(f"{m0} + {m1} = {m}")
 
-dghv = DGHV(512, 256, 16, 3)
-fulladder(dghv, 1)
+dghv = DGHV(512, 256, 16, 7)
+fulladder(dghv, 3)
