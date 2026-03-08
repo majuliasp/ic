@@ -131,8 +131,9 @@ class DGHV:
         }
 
     def not_gate(self, c):
+        um = self.enc(1)
         return {
-            'criptograma' : (1 - c['criptograma']) % self.x0,
+            'criptograma' : ( um['criptograma'] - c['criptograma']) % self.cadeiax0[c['level']],
             'level': c['level']
         }
 
@@ -147,28 +148,23 @@ class DGHV:
         # ambos estão no mesmo nível
         level = c0_obj['level']
 
-        # Valor temporário c
-        temp_c = (c0_obj['criptograma'] * c1_obj['criptograma']) 
+        prod = (c0_obj['criptograma'] * c1_obj['criptograma'])
+        
+        temp_c = {'criptograma': prod, 'level': level}
 
-        # Pegando a chave k
-        keySwitch = self.cadeiaKeySwitch[level]
-        k = keySwitch['key']
-    
-        # Decompondo temp_c
-        y = []
-        c_aux = temp_c
-        for i in range(self.l):
-            digit = c_aux % self.b
-            y.append(digit)
-            c_aux = (c_aux - digit) // self.b
+        c = self.switchToLevel(temp_c, level + 1)
 
-        # Computando o produto
-        c = self.t * sum(y[i] * k[i] for i in range(self.l)) + temp_c % self.t
+        return c
 
-        return {
-            'criptograma' : c,
-            'level' : level + 1
-        }
+    def or_gate(self, c0_obj, c1_obj):
+        # or = (c0 XOR c1) XOR (NOT (c0 AND c1))
+        #      (c0  +  c1)  +  ( -  (c0  *  c1))
+        soma = self.add(c0_obj, c1_obj)
+        prod = self.mult(c0_obj, c1_obj)
+        res = self.add(soma, prod)
+
+
+        return res
     
     def ruido(self, c_obj):
         level = c_obj['level']
