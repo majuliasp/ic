@@ -66,4 +66,4 @@ class DGHV:
         return (c1 * c2) % self.x0
 
     def or_gate(self, c1, c2):  #or
-        return ((c1 + c2) - (c1 * c2)) % self.x0
+        return ((c1 + c2) + (c1 * c2)) % self.x0
