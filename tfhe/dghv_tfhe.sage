@@ -58,11 +58,10 @@ class DGHV:
         return c
 
     def dec_scalar(self, c):
-        y = sym_mod(c, self.p)
-
+        y = c % self.p
         m = round((self.t * y) / self.p)
 
-        return m
+        return m % self.t
     
     # Operações homomórficas:    
     def add_scalar(self, c0, c1): # soma com criptogramas escalares
